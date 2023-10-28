@@ -4,10 +4,12 @@ package blog;
 
 option go_package = "github.com/gRPCBlogX/api";
 
-
 service BlogService {
-  rpc CreateBlog (BlogRequest) returns (BlogResponse);
-  rpc GetBlog (GetBlogRequest) returns (Blog);
+  rpc CreateBlog(BlogRequest) returns (BlogResponse);
+  rpc GetBlog(GetBlogRequest) returns (Blog);
+  rpc UpdateBlog(UpdateBlogRequest) returns (BlogResponse);
+  rpc DeleteBlog(DeleteBlogRequest) returns (DeleteBlogResponse);
+  rpc ListBlogs(ListBlogsRequest) returns (ListBlogsResponse);
 }
 
 message Blog {
@@ -27,4 +29,27 @@ message BlogResponse {
 
 message GetBlogRequest {
   string id = 1;
+}
+
+message UpdateBlogRequest {
+  string id = 1;
+  string title = 2;
+  string content = 3;
+}
+
+message DeleteBlogRequest {
+  string id = 1;
+}
+
+message DeleteBlogResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+message ListBlogsRequest {
+  
+}
+
+message ListBlogsResponse {
+  repeated Blog blogs = 1;
 }
