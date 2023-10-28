@@ -40,3 +40,34 @@ func (s *blogServer) GetBlog(ctx context.Context, req *pb.GetBlogRequest) (*pb.B
 	}
 	return blog, nil
 }
+
+func (s *blogServer) UpdateBlog(ctx context.Context, req *pb.UpdateBlogRequest) (*pb.BlogResponse, error) {
+	blog, exists := s.blogs[req.Id]
+	if !exists {
+		return nil, grpc.Errorf(codes.NotFound, "Blog not found")
+	}
+
+	blog.Title = req.Title
+	blog.Content = req.Content
+
+	return &pb.BlogResponse{Id: blog.Id}, nil
+}
+
+func (s *blogServer) DeleteBlog(ctx context.Context, req *pb.DeleteBlogRequest) (*pb.DeleteBlogResponse, error) {
+	if _, exists := s.blogs[req.Id]; !exists {
+		return nil, grpc.Errorf(codes.NotFound, "Blog not found")
+	}
+
+	delete(s.blogs, req.Id)
+
+	return &pb.DeleteBlogResponse{Success: true, Message: "Blog deleted successfully"}, nil
+}
+
+func (s *blogServer) ListBlogs(ctx context.Context, req *pb.ListBlogsRequest) (*pb.ListBlogsResponse, error) {
+	blogs := make([]*pb.Blog, 0)
+	for _, blog := range s.blogs {
+		blogs = append(blogs, blog)
+	}
+
+	return &pb.ListBlogsResponse{Blogs: blogs}, nil
+}
