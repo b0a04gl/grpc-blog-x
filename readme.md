@@ -40,7 +40,7 @@ Before you start, make sure you have the following software installed:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/yourusername/gRPCBlogX.git
+   git clone https://github.com/b0a04gl/gRPCBlogX.git
    ```
 
 2. Change to the project directory:
