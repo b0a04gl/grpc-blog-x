@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package blog;
+
+option go_package = "github.com/gRPCBlogX/api";
+
+
+service BlogService {
+  rpc CreateBlog (BlogRequest) returns (BlogResponse);
+  rpc GetBlog (GetBlogRequest) returns (Blog);
+}
+
+message Blog {
+  string id = 1;
+  string title = 2;
+  string content = 3;
+}
+
+message BlogRequest {
+  string title = 1;
+  string content = 2;
+}
+
+message BlogResponse {
+  string id = 1;
+}
+
+message GetBlogRequest {
+  string id = 1;
+}
